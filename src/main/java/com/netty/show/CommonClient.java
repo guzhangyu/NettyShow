@@ -66,7 +66,7 @@ public class CommonClient extends CommonWorker {
                     completeHandler.handle(channel);
                 }
             }
-            channel.register(selector,SelectionKey.OP_WRITE );//| SelectionKey.OP_READ
+            channel.register(selector,SelectionKey.OP_WRITE | SelectionKey.OP_READ);
             return;
         }
 

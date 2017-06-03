@@ -110,7 +110,7 @@ public class NIOClient {
                 }
             }
         }).start();
-        client.write("fdafda");
+       // client.write("fdafda");
 
         try {
             Thread.sleep(100000l);

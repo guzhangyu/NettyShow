@@ -109,7 +109,7 @@ public abstract class CommonWorker {
                 }
             });
 
-            channel.register(selector,SelectionKey.OP_WRITE);//|SelectionKey.OP_READ//TODO:可能要改成在这里注册写事件
+            channel.register(selector,SelectionKey.OP_WRITE | SelectionKey.OP_READ);////TODO:可能要改成在这里注册写事件
         }else if(count<0){
             //对端链路关闭
             key.cancel();
@@ -131,7 +131,12 @@ public abstract class CommonWorker {
                      for(Object content:list){
                          writeContentInner(content);
                      }
-                    channel.register(selector,SelectionKey.OP_WRITE|SelectionKey.OP_READ);
+//                    if(CommonWorker.this instanceof CommonClient){
+//                        channel.register(selector, SelectionKey.OP_WRITE );
+//                    }else{
+                        channel.register(selector, SelectionKey.OP_WRITE | SelectionKey.OP_READ);
+                    //}
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -76,15 +76,21 @@ public class NIOServer {
         }else if(selectionKey.isWritable()){
             client=(SocketChannel)selectionKey.channel();
 
-            String text="send msg to client"+flag++;
-            sendBuffer.clear();
-            sendBuffer.put(text.getBytes());
-            sendBuffer.flip();
-            client.write(sendBuffer);
-            System.out.println(String.format("服务端向客户端发送数据:%s",text));
+            write(client);
 
-            client.register(selector,SelectionKey.OP_READ);
+            write(client);
         }
+    }
+
+    private void write(SocketChannel client) throws IOException {
+        String text="send msg to client"+flag++;
+        sendBuffer.clear();
+        sendBuffer.put(text.getBytes());
+        sendBuffer.flip();
+        client.write(sendBuffer);
+        System.out.println(String.format("服务端向客户端发送数据:%s",text));
+
+        client.register(selector, SelectionKey.OP_READ);
     }
 
     public static void main(String[] args) throws IOException {

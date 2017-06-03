@@ -55,7 +55,7 @@ public class CommonServer extends CommonWorker {
         ServerSocketChannel server = (ServerSocketChannel) selectionKey.channel();
         SocketChannel client = server.accept();
         client.configureBlocking(false);
-        client.register(selector, SelectionKey.OP_WRITE);
+        client.register(selector, SelectionKey.OP_WRITE | SelectionKey.OP_READ);
 
         selectionKey.attach(ByteBuffer.allocate(1024));
         logger.debug(String.format("client:%s", CommonUtils.getSocketName(client)));
